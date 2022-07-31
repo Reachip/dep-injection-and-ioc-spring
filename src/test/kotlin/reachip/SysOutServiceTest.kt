@@ -10,18 +10,18 @@ import org.springframework.context.annotation.Primary
 
 internal class SysOutServiceTest {
     @Bean
+    @Primary
     fun randomUUIDBean(): Randomizer {
         return RandomUUID();
     }
 
     @Bean
-    @Primary
     fun randomNumber(): Randomizer {
         return RandomNumber();
     }
 
     @Bean
-    fun sysOutRunnableBeanWithRandomUUID(randomizer: Randomizer): Runnable {
+    fun sysOutRunnableBean(randomizer: Randomizer): Runnable {
         return SysOutService(randomizer);
     }
 
@@ -33,7 +33,7 @@ internal class SysOutServiceTest {
         // On récupère le premier runnable
         val runnable: Runnable = appCtx.getBean(Runnable::class.java);
 
-        assertTrue((runnable as SysOutService).randomizer is RandomNumber)
+        assertTrue((runnable as SysOutService).randomizer is RandomUUID)
 
         // On lance la méthode run()
         assertDoesNotThrow("Should not throw exception") { runnable.run() }
