@@ -1,4 +1,4 @@
-package com.example.iocdetails
+package reachip
 
 interface Randomizer {
     fun getAsString(): String
